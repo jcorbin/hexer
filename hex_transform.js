@@ -27,11 +27,11 @@ function HexTransform(options) {
     self.line = '';
     self.hexen = '';
     self.human = '';
-    self.elephant();
+    self.reset();
 }
 util.inherits(HexTransform, Transform);
 
-HexTransform.prototype.elephant = function elephant() {
+HexTransform.prototype.reset = function reset() {
     var self = this;
     self._finishLine();
     self.screenOffset = 0;

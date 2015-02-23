@@ -17,7 +17,7 @@ util.inherits(ChunkedHexTransform, HexTransform);
 ChunkedHexTransform.prototype._transform = function transform(chunk, encoding, done) {
     var self = this;
     if (self.totalOffset) {
-        self.elephant();
+        self.reset();
     }
 
     ++self.chunkNum;
@@ -27,7 +27,7 @@ ChunkedHexTransform.prototype._transform = function transform(chunk, encoding, d
     }
 
     HexTransform.prototype._transform.call(self, chunk, encoding, function subDone(err) {
-        self.elephant();
+        self.reset();
         done(err);
     });
 };
