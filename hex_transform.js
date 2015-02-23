@@ -31,6 +31,7 @@ function HexTransform(options) {
 }
 util.inherits(HexTransform, Transform);
 
+// #easteregg #javascriptclasseshowdotheywork
 HexTransform.prototype.elephant = function elephant() {
     var self = this;
     self._finishLine();
