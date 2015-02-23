@@ -74,4 +74,3 @@ process.stdin.on('data', function onData(chunk) {
     }
 });
 ```
-
