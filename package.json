@@ -1,8 +1,12 @@
 {
   "name": "hexer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Hex Dumper (streaming, sync, and cli)",
-  "keywords": ["hex", "dump", "hexdump"],
+  "keywords": [
+    "hex",
+    "dump",
+    "hexdump"
+  ],
   "author": "Joshua T Corbin <joshua@wunjo.org>",
   "repository": "git://github.com/jcorbin/hexer.git",
   "main": "index.js",
