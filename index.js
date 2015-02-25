@@ -13,5 +13,6 @@ function hex(buffer, options) {
     var stream = hex.Transform(options);
     stream.write(buffer);
     stream.end();
-    return stream.read();
+    var out = String(stream.read());
+    return out;
 }
