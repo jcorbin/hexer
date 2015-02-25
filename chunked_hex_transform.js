@@ -7,6 +7,7 @@ function ChunkedHexTransform(options) {
     if (!(this instanceof ChunkedHexTransform)) {
         return new ChunkedHexTransform(options);
     }
+    options = options || {};
     HexTransform.call(this, options);
     var self = this;
     self.header = options.header || simpleHeader;

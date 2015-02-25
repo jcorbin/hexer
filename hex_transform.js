@@ -7,9 +7,10 @@ function HexTransform(options) {
     if (!(this instanceof HexTransform)) {
         return new HexTransform(options);
     }
+    options = options || {};
     Transform.call(this, options);
     var self = this;
-    self.options = options || {};
+    self.options = options;
     self.cols = self.options.cols || 16;
     self.group = self.options.group || 2;
     self.offset = self.options.offset || 0;
