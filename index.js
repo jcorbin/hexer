@@ -14,5 +14,6 @@ function hex(buffer, options) {
     stream.write(buffer);
     stream.end();
     var out = String(stream.read());
+    out = out.replace(/\n+$/, '');
     return out;
 }
