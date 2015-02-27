@@ -15,6 +15,19 @@ var hex = require('hexer');
 console.log(hex(someBuffer));
 ```
 
+## Simply steram spy mode: in -> hex.Spy (->sink) -> out
+
+Want to see what's going through a stream?
+
+```
+var hex = require('hexer');
+
+stream
+    .pipe(hex.Spy(process.stdout)) // argument is where to dump to
+    .pipe(somewhere);              // normal output flows through
+```
+
+
 ## Simple streaming mode: in -> hex.Transform -> out
 
 Got a stream? We can render it:

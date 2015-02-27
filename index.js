@@ -2,6 +2,7 @@
 
 hex.Transform = require('./hex_transform');
 hex.ChunkedTransform = require('./chunked_hex_transform');
+hex.Spy = require('./hex_spy');
 
 module.exports = hex;
 
