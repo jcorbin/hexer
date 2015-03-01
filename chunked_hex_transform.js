@@ -39,12 +39,11 @@ ChunkedHexTransform.prototype._transform = function transform(chunk, encoding, d
 
 function simpleHeader(opts) {
     opts = opts || {};
+    var fmt = '-- chunk[%s] length: %s (0x%s)\n';
     return function header(chunkNum, chunk) {
         var len = chunk.length;
         var hexlen = len.toString(16);
-        return util.format(
-            '-- chunk[%s] length: %s (0x%s)\n',
-            chunkNum, len, hexlen);
+        return util.format(fmt, chunkNum, len, hexlen);
     };
 }
 
