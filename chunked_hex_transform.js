@@ -10,7 +10,11 @@ function ChunkedHexTransform(options) {
     options = options || {};
     HexTransform.call(this, options);
     var self = this;
-    self.header = options.header || simpleHeader;
+    if (typeof options.header === 'function') {
+        self.header = options.header;
+    } else {
+        self.header = simpleHeader;
+    }
     self.chunkNum = 0;
 }
 util.inherits(ChunkedHexTransform, HexTransform);
