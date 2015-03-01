@@ -12,6 +12,12 @@ function ChunkedHexTransform(options) {
     var self = this;
     if (typeof options.header === 'function') {
         self.header = options.header;
+    } else if (typeof options.header === 'object') {
+        self.header = simpleHeader(options.header);
+    } else if (typeof options.header === 'string') {
+        self.header = simpleHeader({
+            label: options.header
+        });
     } else {
         self.header = simpleHeader();
     }
@@ -39,7 +45,9 @@ ChunkedHexTransform.prototype._transform = function transform(chunk, encoding, d
 
 function simpleHeader(opts) {
     opts = opts || {};
-    var fmt = '-- chunk[%s] length: %s (0x%s)\n';
+    var fmt = '-- ';
+    if (opts.label) fmt += opts.label + ' ';
+    fmt += 'chunk[%s] length: %s (0x%s)\n';
     return function header(chunkNum, chunk) {
         var len = chunk.length;
         var hexlen = len.toString(16);
