@@ -11,6 +11,7 @@ function HexTransform(options) {
     Transform.call(this, options);
     var self = this;
     self.options = options;
+    self.prefix = self.options.prefix || '';
     self.cols = self.options.cols || 16;
     self.group = self.options.group || 2;
     self.offset = self.options.offset || 0;
@@ -45,7 +46,7 @@ HexTransform.prototype._transform = function transform(chunk, encoding, done) {
         if (self.screenOffset % self.cols === 0) {
             self._finishLine();
             var head = pad('0', self.totalOffset.toString(16), self.offsetWidth);
-            self.line = pad(' ', head, self.gutter) + self.headSep;
+            self.line = self.prefix + pad(' ', head, self.gutter) + self.headSep;
         }
         self._addByte(chunk[offset]);
     }
