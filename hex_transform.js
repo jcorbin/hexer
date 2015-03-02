@@ -86,16 +86,16 @@ HexTransform.prototype._addEmpty = function addEmpty() {
 
 HexTransform.prototype._addByte = function addByte(b) {
     var self = this;
-    self._addPart(pad('0', b.toString(16), 2), self.renderHuman(b));
+    self._addPart(pad('0', b.toString(16), 2), self.renderHuman(b), b);
 };
 
-HexTransform.prototype._addPart = function addByte(hexen, human) {
+HexTransform.prototype._addPart = function addByte(hexen, human, b) {
     var self = this;
     if (hexen.length) {
-        hexen = self.decorateHexen(self.totalOffset, self.screenOffset, hexen);
+        hexen = self.decorateHexen(self.totalOffset, self.screenOffset, hexen, b);
     }
     if (human.length) {
-        human = self.decorateHuman(self.totalOffset, self.screenOffset, human);
+        human = self.decorateHuman(self.totalOffset, self.screenOffset, human, b);
     }
     var isStartOfRow = self.screenOffset % self.cols === 0;
     var isStartOfGroup = self.screenOffset % self.group === 0;
