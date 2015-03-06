@@ -5,6 +5,11 @@ var hex = require('../index');
 test('hex(0 bytes)', function t(assert) {
     var buf = Buffer(0);
     assert.equal(hex(buf), '');
+    assert.equal(hex(buf, {
+        nullHuman: 'DNE'
+    }),
+        '00:                                          DNE',
+        'empty with null accordance');
     assert.end();
 });
 

@@ -24,6 +24,7 @@ function HexTransform(options) {
     self.divide = self.options.divide || '  ';
     self.emptyHexen = self.options.emptyHexen || '  ';
     self.emptyHuman = self.options.emptyHuman || '';
+    self.nullHuman = self.options.nullHuman || '';
     self.offsetWidth = self.options.offsetWidth || 8;
     self.gutter = Math.max(self.offsetWidth, self.gutter);
     self.line = '';
@@ -54,6 +55,10 @@ HexTransform.prototype._transform = function transform(chunk, encoding, done) {
 
 HexTransform.prototype._flush = function flush(done) {
     var self = this;
+    if (self.totalOffset === 0 && self.nullHuman) {
+        self._startLine();
+        self.human += self.nullHuman;
+    }
     self._finishLine();
     done(null);
 };
@@ -68,7 +73,7 @@ HexTransform.prototype._finishLine = function finishLine() {
     var self = this;
     if (self.line.length) {
         var rem = self.screenOffset % self.cols;
-        if (rem !== 0) {
+        if (rem !== 0 || self.nullHuman) {
             rem = self.cols - rem;
             for (var i=0; i<rem; i++) {
                 self._addEmpty();
