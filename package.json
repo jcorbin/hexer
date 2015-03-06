@@ -43,7 +43,7 @@
     }
   ],
   "scripts": {
-    "check-cover": "istanbul check-coverage --branches=100 --lines=100 --functions=100",
+    "check-cover": "istanbul check-coverage",
     "check-ls": "npm ls 1>/dev/null",
     "cover": "npm run test-cover -s && npm run check-cover -s",
     "lint": "jshint .",
