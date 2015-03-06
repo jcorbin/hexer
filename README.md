@@ -87,3 +87,65 @@ process.stdin.on('data', function onData(chunk) {
     }
 });
 ```
+
+## Options
+
+- prefix: a string that will be printed at the beginning of every line.
+  (default empty string, "")
+
+- cols: the number of bytes to display on each line (default 16)
+
+- group: the number of bytes to display adjacently (default 2)
+
+- groupSeparator: a string that appears between byte groups (default one
+  space " ")
+
+- headSep: a string that appears between the offset column and the byte
+  column (default colon space, ": ")
+
+- divide: a string that appears between the byte value column and the
+  character representation column (default two spaces, "  ")
+
+- gutter: the minimum width of the gutter, the region on the left that
+  contains the byte offset that each line starts with. (default 0)
+
+- offsetWidth: the minimum number of digits to display in the byte offset
+  column.
+
+- decorateHexen(totalOffset, screenOffset, hexen):
+  A function that has an opportunity to alter the numeric representation of a
+  byte.
+  Decoration is typically used to change the color of the byte based on its
+  position in the stream or position in the line.
+
+- decorateHuman(totalOffset, screenOffset, human, byte):
+  A function that has an opportunity to alter the appearance of a given
+  human-readable representation of a byte.
+  Decoration is typically used to change the color of the byte based on its
+  position in the stream, position on the line, its representation, or its
+  value.
+
+- renderHuman(byte):
+  a function that accepts a byte value and returns a human readable, single
+  character representation of that byte.
+  By default, the human representation is the character itself for all
+  printable ASCII characters, and a period "." for control characters and
+  EASCII bytes.
+
+- emptyHexen: a two character representation of a non-existant byte at a
+  particular offset for the byte value representation. (default spaces, "  ")
+
+- emptyHuman: the representation of a non-existant byte in the human readable
+  characters column (default null string, "")
+
+- nullHuman: if an entire buffer or stream is empty, the default behavior
+  is to represent it as an empty string or stream.
+  With this option, the empty line will be expressly rendered, with offset
+  zero, empty byte columns, and this string in the human readable characters
+  section.
+
+## License and Copyright
+
+Copyright (c) 2015 Joshua T Corbin and contributors.
+All rights reserved.
+MIT License.
