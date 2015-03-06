@@ -14,7 +14,6 @@ function HexTransform(options) {
     self.prefix = self.options.prefix || '';
     self.cols = self.options.cols || 16;
     self.group = self.options.group || 2;
-    self.offset = self.options.offset || 0;
     self.gutter = self.options.gutter || 0;
     self.decorateHexen = self.options.decorateHexen || noopDecorate;
     self.decorateHuman = self.options.decorateHuman || noopDecorate;
