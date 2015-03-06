@@ -14,7 +14,11 @@ function hex(buffer, options) {
     var stream = hex.Transform(options);
     stream.write(buffer);
     stream.end();
-    var out = String(stream.read());
+    var out = stream.read();
+    if (out === null) {
+        return '';
+    }
+    out = String(out);
     out = out.replace(/\n+$/, '');
     return out;
 }
