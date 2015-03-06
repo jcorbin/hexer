@@ -45,8 +45,7 @@ HexTransform.prototype._transform = function transform(chunk, encoding, done) {
     for (var offset=0; offset<chunk.length; offset++) {
         if (self.screenOffset % self.cols === 0) {
             self._finishLine();
-            var head = pad('0', self.totalOffset.toString(16), self.offsetWidth);
-            self.line = self.prefix + pad(' ', head, self.gutter) + self.headSep;
+            self._startLine();
         }
         self._addByte(chunk[offset]);
     }
@@ -59,6 +58,12 @@ HexTransform.prototype._flush = function flush(done) {
         self._finishLine();
     }
     done(null);
+};
+
+HexTransform.prototype._startLine = function startLine() {
+    var self = this;
+    var head = pad('0', self.totalOffset.toString(16), self.offsetWidth);
+    self.line = self.prefix + pad(' ', head, self.gutter) + self.headSep;
 };
 
 HexTransform.prototype._finishLine = function finishLine() {
