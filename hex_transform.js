@@ -24,6 +24,7 @@ function HexTransform(options) {
     self.divide = self.options.divide || '  ';
     self.emptyHexen = self.options.emptyHexen || '  ';
     self.emptyHuman = self.options.emptyHuman || '';
+    self.veryEmptyHuman = self.options.veryEmptyHuman || '';
     self.offsetWidth = self.options.offsetWidth || 8;
     self.gutter = Math.max(self.offsetWidth, self.gutter);
     self.line = '';
@@ -45,8 +46,7 @@ HexTransform.prototype._transform = function transform(chunk, encoding, done) {
     for (var offset=0; offset<chunk.length; offset++) {
         if (self.screenOffset % self.cols === 0) {
             self._finishLine();
-            var head = pad('0', self.totalOffset.toString(16), self.offsetWidth);
-            self.line = self.prefix + pad(' ', head, self.gutter) + self.headSep;
+            self._startLine();
         }
         self._addByte(chunk[offset]);
     }
@@ -55,17 +55,26 @@ HexTransform.prototype._transform = function transform(chunk, encoding, done) {
 
 HexTransform.prototype._flush = function flush(done) {
     var self = this;
-    if (self.line.length) {
-        self._finishLine();
+    if (self.totalOffset === 0 && self.veryEmptyHuman) {
+        self._startLine();
+        self.human += self.veryEmptyHuman;
     }
+    self._finishLine();
     done(null);
+};
+
+HexTransform.prototype._startLine = function startLine() {
+    var self = this;
+    var head = pad('0', self.totalOffset.toString(16), self.offsetWidth);
+    self.line = self.prefix + pad(' ', head, self.gutter) + self.headSep;
 };
 
 HexTransform.prototype._finishLine = function finishLine() {
     var self = this;
     if (self.line.length) {
+        var empty = self.screenOffset === 0;
         var rem = self.screenOffset % self.cols;
-        if (rem !== 0) {
+        if (rem !== 0 || empty) {
             rem = self.cols - rem;
             for (var i=0; i<rem; i++) {
                 self._addEmpty();
@@ -86,16 +95,16 @@ HexTransform.prototype._addEmpty = function addEmpty() {
 
 HexTransform.prototype._addByte = function addByte(b) {
     var self = this;
-    self._addPart(pad('0', b.toString(16), 2), self.renderHuman(b));
+    self._addPart(pad('0', b.toString(16), 2), self.renderHuman(b), b);
 };
 
-HexTransform.prototype._addPart = function addByte(hexen, human) {
+HexTransform.prototype._addPart = function addByte(hexen, human, b) {
     var self = this;
     if (hexen.length) {
-        hexen = self.decorateHexen(self.totalOffset, self.screenOffset, hexen);
+        hexen = self.decorateHexen(self.totalOffset, self.screenOffset, hexen, b);
     }
     if (human.length) {
-        human = self.decorateHuman(self.totalOffset, self.screenOffset, human);
+        human = self.decorateHuman(self.totalOffset, self.screenOffset, human, b);
     }
     var isStartOfRow = self.screenOffset % self.cols === 0;
     var isStartOfGroup = self.screenOffset % self.group === 0;
