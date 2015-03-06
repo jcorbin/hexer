@@ -54,9 +54,7 @@ HexTransform.prototype._transform = function transform(chunk, encoding, done) {
 
 HexTransform.prototype._flush = function flush(done) {
     var self = this;
-    if (self.line.length) {
-        self._finishLine();
-    }
+    self._finishLine();
     done(null);
 };
 
