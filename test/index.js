@@ -1,3 +1,3 @@
 'use strict';
 
-// TODO
+require('./simple');
