@@ -8,11 +8,13 @@ module.exports = hex;
 
 function hex(buffer, options) {
     options = options || {};
-    if (!options.offsetWidth) {
+    if (!options.offsetWidth && Buffer.isBuffer(buffer)) {
         options.offsetWidth = 2 * Math.ceil(buffer.length.toString(16).length / 2);
     }
     var stream = hex.Transform(options);
-    stream.write(buffer);
+    if (Buffer.isBuffer(buffer)) {
+        stream.write(buffer);
+    }
     stream.end();
     var out = stream.read();
     if (out === null) {
