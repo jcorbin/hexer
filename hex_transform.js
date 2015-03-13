@@ -72,7 +72,7 @@ HexTransform.prototype._finishLine = function finishLine() {
     var self = this;
     if (self.line.length) {
         var rem = self.screenOffset % self.cols;
-        if (rem !== 0 || self.nullHuman) {
+        if (rem !== 0 || (self.totalOffset === 0 && self.nullHuman)) {
             rem = self.cols - rem;
             for (var i=0; i<rem; i++) {
                 self._addEmpty();
