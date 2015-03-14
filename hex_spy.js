@@ -8,7 +8,9 @@ function HexSpy(sink, options) {
     if (!(this instanceof HexSpy)) {
         return new HexSpy(sink, options);
     }
-    options = options || {};
+    // istanbul ignore next
+    if (!options) options = {};
+    // istanbul ignore else
     if (options.highWaterMark === undefined) {
         options.highWaterMark = 1;
     }

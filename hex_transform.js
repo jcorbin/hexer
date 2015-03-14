@@ -7,7 +7,8 @@ function HexTransform(options) {
     if (!(this instanceof HexTransform)) {
         return new HexTransform(options);
     }
-    options = options || {};
+    // istanbul ignore next
+    if (!options) options = {};
     Transform.call(this, options);
     var self = this;
     self.options = options;
@@ -98,12 +99,8 @@ HexTransform.prototype._addByte = function addByte(b) {
 
 HexTransform.prototype._addPart = function addByte(hexen, human, b) {
     var self = this;
-    if (hexen.length) {
-        hexen = self.decorateHexen(self.totalOffset, self.screenOffset, hexen, b);
-    }
-    if (human.length) {
-        human = self.decorateHuman(self.totalOffset, self.screenOffset, human, b);
-    }
+    hexen = self.decorateHexen(self.totalOffset, self.screenOffset, hexen, b);
+    human = self.decorateHuman(self.totalOffset, self.screenOffset, human, b);
     var isStartOfRow = self.screenOffset % self.cols === 0;
     var isStartOfGroup = self.screenOffset % self.group === 0;
     if (!isStartOfRow && isStartOfGroup) {

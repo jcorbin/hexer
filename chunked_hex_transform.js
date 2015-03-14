@@ -7,7 +7,8 @@ function ChunkedHexTransform(options) {
     if (!(this instanceof ChunkedHexTransform)) {
         return new ChunkedHexTransform(options);
     }
-    options = options || {};
+    // istanbul ignore next
+    if (!options) options = {};
     HexTransform.call(this, options);
     var self = this;
     if (typeof options.header === 'function') {
@@ -27,6 +28,7 @@ util.inherits(ChunkedHexTransform, HexTransform);
 
 ChunkedHexTransform.prototype._transform = function transform(chunk, encoding, done) {
     var self = this;
+    // istanbul ignore next
     if (self.totalOffset) {
         self.reset();
     }
