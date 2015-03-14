@@ -1,11 +1,11 @@
 check:
     global:
-        statements: 72
-        lines: 72
-        branches: 65
-        functions: 57
+        statements: 100
+        lines: 100
+        branches: 100
+        functions: 100
     each:
-        statements: 0
-        lines: 0
-        branches: 0
-        functions: 0
+        statements: 100
+        lines: 100
+        branches: 100
+        functions: 100
