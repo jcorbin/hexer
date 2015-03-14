@@ -2,3 +2,4 @@
 
 require('./simple');
 require('./chunked');
+require('./spy');
