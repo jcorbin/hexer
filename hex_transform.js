@@ -7,7 +7,8 @@ function HexTransform(options) {
     if (!(this instanceof HexTransform)) {
         return new HexTransform(options);
     }
-    options = options || {};
+    // istanbul ignore next
+    if (!options) options = {};
     Transform.call(this, options);
     var self = this;
     self.options = options;
