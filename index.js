@@ -7,14 +7,18 @@ hex.Spy = require('./hex_spy');
 module.exports = hex;
 
 function hex(buffer, options) {
+    if (typeof buffer === 'string') {
+        return hex(Buffer(buffer), options);
+    }
+    if (!Buffer.isBuffer(buffer)) {
+        throw new Error('invalid argument to hex, expected a buffer or string');
+    }
     options = options || {};
-    if (!options.offsetWidth && Buffer.isBuffer(buffer)) {
+    if (!options.offsetWidth) {
         options.offsetWidth = 2 * Math.ceil(buffer.length.toString(16).length / 2);
     }
     var stream = hex.Transform(options);
-    if (Buffer.isBuffer(buffer)) {
-        stream.write(buffer);
-    }
+    stream.write(buffer);
     stream.end();
     var out = stream.read();
     if (out === null) {
