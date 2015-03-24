@@ -19,10 +19,14 @@ function HexTransform(options) {
     self.decorateHexen = self.options.decorateHexen || noopDecorate;
     self.decorateHuman = self.options.decorateHuman || noopDecorate;
     self.renderHuman = self.options.renderHuman || byte2char;
-    self.groupSeparator = self.options.groupSeparator || ' ';
-    self.headSep = self.options.headSep || ': ';
-    self.divide = self.options.divide || '  ';
-    self.emptyHexen = self.options.emptyHexen || '  ';
+    // istanbul ignore next
+    self.groupSeparator = self.options.groupSeparator === undefined ? ' ' : self.options.groupSeparator;
+    // istanbul ignore next
+    self.headSep = self.options.headSep === undefined ? ': ' : self.options.headSep;
+    // istanbul ignore next
+    self.divide = self.options.divide === undefined ? '  ' : self.options.divide;
+    // istanbul ignore next
+    self.emptyHexen = self.options.emptyHexen === undefined ? '  ' : self.options.emptyHexen;
     self.emptyHuman = self.options.emptyHuman || '';
     self.nullHuman = self.options.nullHuman || '';
     self.offsetWidth = self.options.offsetWidth || 8;
