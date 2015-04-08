@@ -99,7 +99,9 @@ HexTransform.prototype._addEmpty = function addEmpty() {
 
 HexTransform.prototype._addByte = function addByte(b) {
     var self = this;
-    self._addPart(render.pad('0', b.toString(16), 2), self.renderHuman(b), b);
+    var hexen = render.pad('0', b.toString(16), 2);
+    var human = self.renderHuman(b);
+    self._addPart(hexen, human, b);
 };
 
 HexTransform.prototype._addPart = function addByte(hexen, human, b) {
