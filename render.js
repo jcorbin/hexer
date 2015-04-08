@@ -5,6 +5,10 @@ function pad(c, s, width) {
     return s;
 }
 
+function byte2hex(b) {
+    return pad('0', b.toString(16), 2);
+}
+
 function byte2char(c) {
     if (c > 0x1f && c < 0x7f) {
         return String.fromCharCode(c);
@@ -15,4 +19,5 @@ function byte2char(c) {
 }
 
 module.exports.pad = pad;
+module.exports.byte2hex = byte2hex;
 module.exports.byte2char = byte2char;

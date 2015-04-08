@@ -125,6 +125,11 @@ process.stdin.on('data', function onData(chunk) {
   position in the stream, position on the line, its representation, or its
   value.
 
+- renderHexen(byte):
+  a function that accepts a byte value and returns a hexen readable, two
+  character representation of that byte.
+  By default, the hexen representation is lower-case zero-padded hex.
+
 - renderHuman(byte):
   a function that accepts a byte value and returns a human readable, single
   character representation of that byte.

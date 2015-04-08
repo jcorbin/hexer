@@ -19,6 +19,7 @@ function HexTransform(options) {
     self.gutter = self.options.gutter || 0;
     self.decorateHexen = self.options.decorateHexen || noopDecorate;
     self.decorateHuman = self.options.decorateHuman || noopDecorate;
+    self.renderHexen = self.options.renderHexen || render.byte2hex;
     self.renderHuman = self.options.renderHuman || render.byte2char;
     // istanbul ignore next
     self.groupSeparator = self.options.groupSeparator === undefined ? ' ' : self.options.groupSeparator;
@@ -99,7 +100,7 @@ HexTransform.prototype._addEmpty = function addEmpty() {
 
 HexTransform.prototype._addByte = function addByte(b) {
     var self = this;
-    var hexen = render.pad('0', b.toString(16), 2);
+    var hexen = self.renderHexen(b);
     var human = self.renderHuman(b);
     self._addPart(hexen, human, b);
 };
