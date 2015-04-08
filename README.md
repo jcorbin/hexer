@@ -149,6 +149,8 @@ process.stdin.on('data', function onData(chunk) {
   zero, empty byte columns, and this string in the human readable characters
   section.
 
+- colored: if set true, enables ANSI coloring of output
+
 ## License and Copyright
 
 Copyright (c) 2015 Joshua T Corbin and contributors.

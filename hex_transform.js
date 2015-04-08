@@ -1,5 +1,6 @@
 "use strict";
 
+var extendInto = require('xtend/mutable');
 var util = require('util');
 var Transform = require('stream').Transform;
 var render = require('./render');
@@ -10,6 +11,8 @@ function HexTransform(options) {
     }
     // istanbul ignore next
     if (!options) options = {};
+    // istanbul ignore if
+    if (options.colored) extendInto(options, render.coloredOptions);
     Transform.call(this, options);
     var self = this;
     self.options = options;
