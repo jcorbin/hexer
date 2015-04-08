@@ -29,6 +29,17 @@ function renderColoredHuman(c) {
     }
 }
 
+// istanbul ignore next
+function stripColor(str) {
+    while (true) {
+        var i = str.indexOf('\x1b[');
+        if (i < 0) return str;
+        var j = str.indexOf('m', i);
+        if (j < 0) return str;
+        str = str.slice(0, i) + str.slice(j + 1);
+    }
+}
+
 module.exports.coloredHeadSep = color(':', 'cyan') + ' ';
 
 module.exports.coloredOptions = {
@@ -40,3 +51,4 @@ module.exports.pad = pad;
 module.exports.byte2hex = byte2hex;
 module.exports.byte2char = byte2char;
 module.exports.renderHuman = renderColoredHuman;
+module.exports.stripColor = stripColor;
