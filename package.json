@@ -1,6 +1,6 @@
 {
   "name": "hexer",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Hex Dumper (streaming, sync, and cli)",
   "keywords": [
     "hex",
