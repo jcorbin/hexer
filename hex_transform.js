@@ -20,6 +20,8 @@ function HexTransform(options) {
     self.cols = self.options.cols || 16;
     self.group = self.options.group || 2;
     self.gutter = self.options.gutter || 0;
+    // istanbul ignore if
+    self.annotateLine = options.annotateLine || null;
     self.decorateHexen = self.options.decorateHexen || noopDecorate;
     self.decorateHuman = self.options.decorateHuman || noopDecorate;
     self.renderHexen = self.options.renderHexen || render.byte2hex;
@@ -88,7 +90,12 @@ HexTransform.prototype._finishLine = function finishLine() {
                 self._addEmpty();
             }
         }
-        self.line += self.hexen + self.divide + self.human + '\n';
+        self.line += self.hexen + self.divide + self.human;
+        // istanbul ignore if
+        if (self.annotateLine) {
+            self.line += self.annotateLine(self.totalOffset - self.cols, self.totalOffset);
+        }
+        self.line += '\n';
         self.push(self.line);
         self.line = '';
         self.hexen = '';
