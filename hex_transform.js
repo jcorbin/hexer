@@ -1,7 +1,9 @@
 "use strict";
 
+var extendInto = require('xtend/mutable');
 var util = require('util');
 var Transform = require('stream').Transform;
+var render = require('./render');
 
 function HexTransform(options) {
     if (!(this instanceof HexTransform)) {
@@ -9,6 +11,8 @@ function HexTransform(options) {
     }
     // istanbul ignore next
     if (!options) options = {};
+    // istanbul ignore if
+    if (options.colored) extendInto(options, render.coloredOptions);
     Transform.call(this, options);
     var self = this;
     self.options = options;
@@ -18,7 +22,8 @@ function HexTransform(options) {
     self.gutter = self.options.gutter || 0;
     self.decorateHexen = self.options.decorateHexen || noopDecorate;
     self.decorateHuman = self.options.decorateHuman || noopDecorate;
-    self.renderHuman = self.options.renderHuman || byte2char;
+    self.renderHexen = self.options.renderHexen || render.byte2hex;
+    self.renderHuman = self.options.renderHuman || render.byte2char;
     // istanbul ignore next
     self.groupSeparator = self.options.groupSeparator === undefined ? ' ' : self.options.groupSeparator;
     // istanbul ignore next
@@ -69,8 +74,8 @@ HexTransform.prototype._flush = function flush(done) {
 
 HexTransform.prototype._startLine = function startLine() {
     var self = this;
-    var head = pad('0', self.totalOffset.toString(16), self.offsetWidth);
-    self.line = self.prefix + pad(' ', head, self.gutter) + self.headSep;
+    var head = render.pad('0', self.totalOffset.toString(16), self.offsetWidth);
+    self.line = self.prefix + render.pad(' ', head, self.gutter) + self.headSep;
 };
 
 HexTransform.prototype._finishLine = function finishLine() {
@@ -98,7 +103,9 @@ HexTransform.prototype._addEmpty = function addEmpty() {
 
 HexTransform.prototype._addByte = function addByte(b) {
     var self = this;
-    self._addPart(pad('0', b.toString(16), 2), self.renderHuman(b), b);
+    var hexen = self.renderHexen(b);
+    var human = self.renderHuman(b);
+    self._addPart(hexen, human, b);
 };
 
 HexTransform.prototype._addPart = function addByte(hexen, human, b) {
@@ -115,20 +122,6 @@ HexTransform.prototype._addPart = function addByte(hexen, human, b) {
     self.totalOffset++;
     self.screenOffset++;
 };
-
-function pad(c, s, width) {
-    while (s.length < width) s = c + s;
-    return s;
-}
-
-function byte2char(c) {
-    if (c > 0x1f && c < 0x7f) {
-        return String.fromCharCode(c);
-    } else {
-        return '.';
-    }
-    // TODO: could provide perhaps some unicode renderings for certain control chars
-}
 
 function noopDecorate(offset, screenOffset, s) {
     return s;
