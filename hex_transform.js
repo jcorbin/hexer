@@ -2,7 +2,7 @@
 
 var extendInto = require('xtend/mutable');
 var util = require('util');
-var Transform = require('stream').Transform;
+var Transform = require('readable-stream').Transform;
 var render = require('./render');
 
 function HexTransform(options) {

@@ -1,4 +1,4 @@
-var PassThrough = require('stream').PassThrough;
+var PassThrough = require('readable-stream').PassThrough;
 var test = require('tape');
 var expectReadableStream = require('./lib/expect_readable_stream');
 
