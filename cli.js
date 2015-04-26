@@ -11,9 +11,11 @@ var ChunkedHexTransform = require('./chunked_hex_transform');
 var argv = process.argv.slice(2);
 var args = parseArgs(argv, {
     boolean: {
-        chunked: true
+        chunked: true,
+        colored: true
     },
     alias: {
+        C: 'colored',
         c: 'cols',
         g: 'group'
     }
@@ -21,7 +23,8 @@ var args = parseArgs(argv, {
 
 var options = {
     cols: parseInt(args.cols, 10),
-    group: parseInt(args.group, 10)
+    group: parseInt(args.group, 10),
+    colored: args.colored
 };
 
 var trans;
