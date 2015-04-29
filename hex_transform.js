@@ -1,6 +1,6 @@
 "use strict";
 
-var extendInto = require('xtend/mutable');
+var extend = require('xtend');
 var util = require('util');
 var Transform = require('readable-stream').Transform;
 var render = require('./render');
@@ -11,8 +11,7 @@ function HexTransform(options) {
     }
     // istanbul ignore next
     if (!options) options = {};
-    // istanbul ignore if
-    if (options.colored) extendInto(options, render.coloredOptions);
+    if (options.colored) options = extend(render.coloredOptions, options);
     Transform.call(this, options);
     var self = this;
     self.options = options;
@@ -28,7 +27,6 @@ function HexTransform(options) {
     self.renderHuman = self.options.renderHuman || render.byte2char;
     // istanbul ignore next
     self.groupSeparator = self.options.groupSeparator === undefined ? ' ' : self.options.groupSeparator;
-    // istanbul ignore next
     self.headSep = self.options.headSep === undefined ? ': ' : self.options.headSep;
     // istanbul ignore next
     self.divide = self.options.divide === undefined ? '  ' : self.options.divide;
