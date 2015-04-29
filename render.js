@@ -20,7 +20,6 @@ function byte2char(c) {
     // TODO: could provide perhaps some unicode renderings for certain control chars
 }
 
-// istanbul ignore next
 function renderColoredHuman(c) {
     if (c > 0x1f && c < 0x7f) {
         return String.fromCharCode(c);

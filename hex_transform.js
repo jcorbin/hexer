@@ -11,7 +11,6 @@ function HexTransform(options) {
     }
     // istanbul ignore next
     if (!options) options = {};
-    // istanbul ignore if
     if (options.colored) options = extend(render.coloredOptions, options);
     Transform.call(this, options);
     var self = this;
@@ -28,7 +27,6 @@ function HexTransform(options) {
     self.renderHuman = self.options.renderHuman || render.byte2char;
     // istanbul ignore next
     self.groupSeparator = self.options.groupSeparator === undefined ? ' ' : self.options.groupSeparator;
-    // istanbul ignore next
     self.headSep = self.options.headSep === undefined ? ': ' : self.options.headSep;
     // istanbul ignore next
     self.divide = self.options.divide === undefined ? '  ' : self.options.divide;
