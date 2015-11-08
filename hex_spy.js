@@ -1,5 +1,5 @@
 var util = require('util');
-var Transform = require('readable-stream').Transform;
+var Transform = require('stream').Transform;
 var ChunkedHexTransform = require('./chunked_hex_transform');
 
 module.exports = HexSpy;
