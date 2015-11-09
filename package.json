@@ -60,7 +60,6 @@
     "node": ">= 0.10.x"
   },
   "pre-commit": [
-    "check-licence",
     "test"
   ],
   "pre-commit.silent": true,
