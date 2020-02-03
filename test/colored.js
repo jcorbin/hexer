@@ -8,7 +8,7 @@ test('colored options', function t(assert) {
     assert.deepEqual(hex(buf, {
         colored: true
     }).split(/\n/), [
-        '00\x1b[36m:\x1b[0m 6162 63                                  abc'
+        '00\x1b[36m:\x1b[39m 6162 63                                  abc'
     ], 'expected basic output');
 
     assert.deepEqual(hex(buf, {
@@ -22,7 +22,7 @@ test('colored options', function t(assert) {
     assert.deepEqual(hex(buf, {
         colored: true
     }).split(/\n/), [
-        '00\x1b[36m:\x1b[0m 00                                       \x1b[30m\x1b[1m.\x1b[0m'
+        '00\x1b[36m:\x1b[39m 00                                       \x1b[30m\x1b[1m.\x1b[22m\x1b[39m'
     ], 'expected human rendering');
 
     buf = Buffer([0]);
@@ -32,7 +32,7 @@ test('colored options', function t(assert) {
             return (c > 0x1f && c < 0x7f) ? String.fromCharCode(c) : '.';
         }
     }).split(/\n/), [
-        '00\x1b[36m:\x1b[0m 00                                       .'
+        '00\x1b[36m:\x1b[39m 00                                       .'
     ], 'expected ability to override renderHuman');
 
     assert.end();
