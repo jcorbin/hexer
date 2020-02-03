@@ -1,6 +1,6 @@
 'use strict';
 
-var color = require('ansi-color').set;
+var color = require('ansi-colors');
 
 function pad(c, s, width) {
     while (s.length < width) s = c + s;
@@ -24,7 +24,7 @@ function renderColoredHuman(c) {
     if (c > 0x1f && c < 0x7f) {
         return String.fromCharCode(c);
     } else {
-        return color('.', 'black+bold');
+        return color.black.bold('.');
     }
 }
 
@@ -39,7 +39,7 @@ function stripColor(str) {
     }
 }
 
-module.exports.coloredHeadSep = color(':', 'cyan') + ' ';
+module.exports.coloredHeadSep = color.cyan(':') + ' ';
 
 module.exports.coloredOptions = {
     headSep: module.exports.coloredHeadSep,
